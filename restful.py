@@ -1,10 +1,9 @@
 #!flask/bin/python
 from datetime import datetime
-from time import sleep
-
 from flask import Flask, jsonify, abort, make_response, request
-from sense_hat import SenseHat
 
+from sensehat import demo
+import sensehat
 
 app = Flask(__name__)
 
@@ -25,13 +24,8 @@ tasks = [
 
 @app.route('/restful/demo', methods=['GET'])
 def demo():
-    now = datetime.now().strftime('%H:%M:%S')
-    sense = SenseHat()
-    sense.low_light=True
-    sense.show_message("Hi ELON!", text_colour=[255,0,0], back_colour=[125,125,125])
-    sense.show_message(now, scroll_speed=0.05)
-    return "done"
-
+    sensehat.demo()
+    
 @app.route('/restful', methods=['GET'])
 def get_tasks():
     return jsonify({'tasks': tasks})
