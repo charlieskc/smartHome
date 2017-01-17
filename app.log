@@ -1,0 +1,51 @@
+/home/pi/Desktop/py/stop.sh: line 4: kill: (16291) - No such process
+/usr/bin/python: can't open file 'restful.py': [Errno 2] No such file or directory
+/home/pi/Desktop/py/stop.sh: line 4: kill: (16430) - No such process
+ * Running on http://0.0.0.0:5000/
+ * Restarting with reloader
+ * Detected change in '/home/pi/Desktop/py/restful.py', reloading
+ * Restarting with reloader
+ * Detected change in '/home/pi/Desktop/py/restful.py', reloading
+ * Restarting with reloader
+192.168.1.85 - - [17/Jan/2017 11:39:08] "GET / HTTP/1.1" 404 -
+192.168.1.85 - - [17/Jan/2017 11:39:22] "GET /restful/demo HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/usr/share/pyshared/flask/app.py", line 1836, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/share/pyshared/flask/app.py", line 1820, in wsgi_app
+    response = self.make_response(self.handle_exception(e))
+  File "/usr/share/pyshared/flask/app.py", line 1403, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/share/pyshared/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/share/pyshared/flask/app.py", line 1478, in full_dispatch_request
+    response = self.make_response(rv)
+  File "/usr/share/pyshared/flask/app.py", line 1566, in make_response
+    raise ValueError('View function did not return a response')
+ValueError: View function did not return a response
+192.168.1.85 - - [17/Jan/2017 11:39:22] "GET /restful/demo?__debugger__=yes&cmd=resource&f=jquery.js HTTP/1.1" 200 -
+192.168.1.85 - - [17/Jan/2017 11:39:22] "GET /restful/demo?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+192.168.1.85 - - [17/Jan/2017 11:39:22] "GET /restful/demo?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+192.168.1.85 - - [17/Jan/2017 11:39:23] "GET /restful/demo?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+192.168.1.85 - - [17/Jan/2017 11:39:23] "GET /restful/demo?__debugger__=yes&cmd=resource&f=source.png HTTP/1.1" 200 -
+192.168.1.85 - - [17/Jan/2017 11:39:23] "GET /restful/demo?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+ * Detected change in '/home/pi/Desktop/py/restful.py', reloading
+ * Restarting with reloader
+192.168.1.85 - - [17/Jan/2017 11:40:09] "GET /restful/demo HTTP/1.1" 200 -
+192.168.1.85 - - [17/Jan/2017 11:40:50] "GET /restful/demo HTTP/1.1" 200 -
+192.168.1.85 - - [17/Jan/2017 11:40:50] "GET /favicon.ico HTTP/1.1" 404 -
+ * Detected change in '/home/pi/Desktop/py/restful.py', reloading
+ * Restarting with reloader
+ * Detected change in '/home/pi/Desktop/py/restful.py', reloading
+ * Restarting with reloader
+192.168.1.85 - - [17/Jan/2017 12:43:39] "GET /restful/demo HTTP/1.1" 200 -
+192.168.1.85 - - [17/Jan/2017 12:43:48] "GET /restful/3 HTTP/1.1" 404 -
+192.168.1.85 - - [17/Jan/2017 12:45:02] "GET /restful/demo HTTP/1.1" 200 -
+ * Detected change in '/home/pi/Desktop/py/restful.py', reloading
+ * Restarting with reloader
+ * Detected change in '/home/pi/Desktop/py/restful.py', reloading
+ * Restarting with reloader
+  File "/home/pi/Desktop/py/restful.py", line 31
+    sense.show_message("Hi ELON!", text_colour=[255,0,0], back_colour=[125,125,125])
+    ^
+IndentationError: unexpected indent
