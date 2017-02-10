@@ -1,9 +1,11 @@
 #!flask/bin/python
 from datetime import datetime
-
-from flask import Flask
-from flask_restful import reqparse, abort, Api, Resource
 import subprocess
+import time
+
+from flask import Flask, request
+from flask_restful import reqparse, abort, Api, Resource
+
 import sensehat
 
 
@@ -33,6 +35,7 @@ def abort_if_action_not_exist(actionId):
 parser = reqparse.RequestParser()
 parser.add_argument('action')
 parser.add_argument('actiontype')
+parser.add_argument('freq')
 
 class Action(Resource):
     def get(self, actionId):
@@ -65,6 +68,7 @@ class ActionList(Resource):
 
 class Perform(Resource):
     def get(self):
+        app.logger.info(request.stream.read())
         args = parser.parse_args()
         if args['action'] == "sensehat":   
             return sensehat.demo()
@@ -73,16 +77,31 @@ class Perform(Resource):
                 subprocess.check_output(["irsend SEND_ONCE kef " + args['actiontype']], shell=True)
                 return args['actiontype'] + " is triggered."
         elif args['action'] == "dyson": 
-            if args['actiontype']:
-                subprocess.check_output(["irsend SEND_ONCE dyson " + args['actiontype']], shell=True)
-                return args['actiontype'] + " is triggered."
+            if args['actiontype']:                
+                while(True):
+                    subprocess.check_output(["irsend SEND_ONCE dyson " + args['actiontype']], shell=True)
+                    time.sleep(300)
+                    subprocess.check_output(["irsend SEND_ONCE dyson " + args['actiontype']], shell=True)
+                    time.sleep(1500)
+                return "device " + args['action'] + " is triggered " + args['actiontype']
         else:
-             abort(404, message="Action is not recognized - Usage example= http://pi.kaiching.net:8080/perform?action=dyson&actiontype=KEY_POWER") 
+            abort(404, message="Action is not recognized - Usage example= http://pi.kaiching.net:8080/perform?action=dyson&actiontype=KEY_POWER") 
     def post(self):
+        app.logger.info(request.stream.read())
         args = parser.parse_args()
+        #print (args['action'] + "," + args['actiontype'])
         if args['action'] == "sensehat":            
             return sensehat.demo()
-        abort(404, message="Action is not recognized") 
+        elif args['action'] == "kef": 
+            if args['actiontype']:
+                subprocess.check_output(["irsend SEND_ONCE kef " + args['actiontype']], shell=True)
+                return "Infrared blasted to " + args['action'] + " as " + args['actiontype']           
+        elif args['action'] == "dyson": 
+            if args['actiontype']:
+                subprocess.check_output(["irsend SEND_ONCE dyson " + args['actiontype']], shell=True)
+                return "Infrared blasted to " + args['action'] + " as " + args['actiontype']           
+        else:
+            abort(404, message="Action is not recognized") 
 
 
 
