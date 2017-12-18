@@ -78,11 +78,7 @@ class Perform(Resource):
                 return args['actiontype'] + " is triggered."
         elif args['action'] == "dyson": 
             if args['actiontype']:                
-                while(True):
-                    subprocess.check_output(["irsend SEND_ONCE dyson " + args['actiontype']], shell=True)
-                    time.sleep(300)
-                    subprocess.check_output(["irsend SEND_ONCE dyson " + args['actiontype']], shell=True)
-                    time.sleep(1500)
+                subprocess.check_output(["irsend SEND_ONCE dyson " + args['actiontype']], shell=True)
                 return "device " + args['action'] + " is triggered " + args['actiontype']
         else:
             abort(404, message="Action is not recognized - Usage example= http://pi.kaiching.net:8080/perform?action=dyson&actiontype=KEY_POWER") 
