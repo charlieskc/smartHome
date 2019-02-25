@@ -35,6 +35,9 @@ pip install flask
 ### 1. Infra-red lirc setup
 
 #### learn the infra-red signal
+sudo service lirc restart
+sudo irrecord --device=/dev/lirc0
+sudo irrecord -d /dev/lirc0  /etc/lirc/lircd.conf
 
 #### test infrared command
 
